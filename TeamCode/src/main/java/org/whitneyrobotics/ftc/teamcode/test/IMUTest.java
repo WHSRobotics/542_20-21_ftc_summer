@@ -35,7 +35,7 @@ public class IMUTest extends OpMode {
         double currentAngularVelocity = imu.getAngularVelocity();
         double currentTime = System.nanoTime()*1E9;
         alpha = (currentAngularVelocity - lastAngularVelocity)/(currentTime - lastTime);
-        drivetrain.operateMecanumDrive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, imu.getHeading());
+        //drivetrain.operateMecanumDrive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, imu.getHeading());
 
         lastTime = currentTime;
         lastAngularVelocity = currentAngularVelocity;

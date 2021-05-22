@@ -1,3 +1,4 @@
+/*
 package org.whitneyrobotics.ftc.teamcode.lib.util;
 
 //import com.acmerobotics.dashboard.config.Config;
@@ -6,7 +7,7 @@ package org.whitneyrobotics.ftc.teamcode.lib.util;
 
 import org.whitneyrobotics.ftc.teamcode.lib.control.ControlConstants;
 
-//@Config
+@Config
 public class RobotConstants {
     //Drivetrain
     public final static double DEADBAND_DRIVE_TO_TARGET = 24.5;
@@ -32,3 +33,4 @@ public class RobotConstants {
 
 
 }
+*/
