@@ -43,6 +43,16 @@ public class Drivetrain {
         }
     }
 
+    public void operateLeft(double power){
+        frontL.setPower(-power);
+        backL.setPower(-power);
+    }
+
+    public void operateRight(double power){
+        frontR.setPower(power);
+        backR.setPower(power);
+    }
+
 //    public void operateDemo(double stick1Y, double stick2Y, boolean gamepad1Y){
 //        if(gamepad1Y = false){
 //            frontL.setPower(-stick1Y);
@@ -70,7 +80,7 @@ public class Drivetrain {
         double[] encoderPositions = new double[2];
         encoderPositions[0] = (frontL.getCurrentPosition() + backL.getCurrentPosition())/2;
         encoderPositions[1] = (frontR.getCurrentPosition() + backR.getCurrentPosition())/2;
-        
+
         return encoderPositions;
     }
 
