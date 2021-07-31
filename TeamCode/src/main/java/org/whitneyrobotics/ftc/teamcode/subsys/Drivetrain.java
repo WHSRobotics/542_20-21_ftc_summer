@@ -76,12 +76,26 @@ public class Drivetrain {
         directionToggler.changeState(gamepad1Y);
     }
 
-    public double[] averageEncoderPositions() {
+    public double[] averageEncoderPositionsFrontBack() {
+        double[] encoderPositions = new double[2];
+        encoderPositions[0] = (frontL.getCurrentPosition() + frontR.getCurrentPosition())/2;
+        encoderPositions[1] = (backL.getCurrentPosition() + backR.getCurrentPosition())/2;
+
+        return encoderPositions;
+    }
+
+    public double[] averageEncoderPositionsLeftRight(){
         double[] encoderPositions = new double[2];
         encoderPositions[0] = (frontL.getCurrentPosition() + backL.getCurrentPosition())/2;
         encoderPositions[1] = (frontR.getCurrentPosition() + backR.getCurrentPosition())/2;
-
         return encoderPositions;
+    }
+
+    public double ticksToMM(double ticks){
+        double ticksPerRevolution = 537.6;
+        double wheelDiameterMM = 319.024;
+        return (ticks/ticksPerRevolution)*wheelDiameterMM;
+
     }
 
 

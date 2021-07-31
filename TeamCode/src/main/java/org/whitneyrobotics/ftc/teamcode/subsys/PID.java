@@ -14,6 +14,12 @@ public class PID {
         this.kD = kD;
     }
 
+    public void init(){
+        double recordedTime = System.nanoTime();
+        double lastError = 0;
+        double lastI = 0;
+    }
+
     public double calculate(double target, double current) {
         double error = target - current;
 

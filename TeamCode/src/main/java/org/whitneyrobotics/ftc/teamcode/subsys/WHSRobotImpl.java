@@ -202,16 +202,24 @@ public class WHSRobotImpl {
         return rotateToTargetInProgress;
     }
 }
+/*
+    public void estimatePosition() {
+        encoderDeltas = drivetrain.getLRAvgEncoderDelta();
+        distance = drivetrain.encToMM((encoderDeltas[0] + encoderDeltas[1]) / 2);
+        robotX += distance * Functions.cosd(getCoordinate().getHeading());
+        robotY += distance * Functions.sind(getCoordinate().getHeading());
+        currentCoord.setX(robotX);
+        currentCoord.setY(robotY);
+    }*/
+    public void estimatePosition(){
+        encoderDeltas = drivetrain.averageEncoderPositionsFrontBack();
+        distance = drivetrain.ticksToMM((encoderDeltas[0] + encoderDeltas[1])/2);
+        robotX += distance * -Functions.cosd(getCoordinate().getHeading());
+        robotY+= distance * Functions.sind(getCoordinate().getHeading());
+        currentCoord.setX(robotX);
+        currentCoord.setY(robotY);
+    }
 
-    //public void estimatePosition() {
-    //    encoderDeltas = drivetrain.getLRAvgEncoderDelta();
-    //    distance = drivetrain.encToMM((encoderDeltas[0] + encoderDeltas[1]) / 2);
-    //    robotX += distance * Functions.cosd(getCoordinate().getHeading());
-    //    robotY += distance * Functions.sind(getCoordinate().getHeading());
-    //    currentCoord.setX(robotX);
-    //    currentCoord.setY(robotY);
-    //}
-    /*
 
     public void deadWheelEstimateCoordinate() {
 
@@ -521,4 +529,4 @@ public void deadWheelEstimateCoordinate() {
     public boolean shootingInProgress(){
         return  shootingInProgress;
     }
-}*/
+}
