@@ -1,4 +1,5 @@
 package org.whitneyrobotics.ftc.teamcode.lib.motion;
+import org.firstinspires.ftc.robotcore.external.Func;
 import org.whitneyrobotics.ftc.teamcode.lib.util.Functions;
 
 public class MotionProfile {

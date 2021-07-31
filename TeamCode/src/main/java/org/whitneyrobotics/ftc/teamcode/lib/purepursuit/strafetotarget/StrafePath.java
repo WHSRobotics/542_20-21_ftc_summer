@@ -1,6 +1,7 @@
 package org.whitneyrobotics.ftc.teamcode.lib.purepursuit.strafetotarget;
 
 import org.whitneyrobotics.ftc.teamcode.lib.geometry.Coordinate;
+import org.whitneyrobotics.ftc.teamcode.lib.geometry.Position;
 import org.whitneyrobotics.ftc.teamcode.lib.geometry.StrafeWaypoint;
 import org.whitneyrobotics.ftc.teamcode.lib.purepursuit.FollowerConstants;
 

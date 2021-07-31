@@ -1,10 +1,9 @@
-package org.whitneyrobotics.ftc.teamcode.test;
+package org.whitneyrobotics.ftc.teamcode.tests;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-
 import org.whitneyrobotics.ftc.teamcode.subsys.WHSRobotImpl;
-
 @TeleOp(name = "Acceleration Test")
 public class AccelerationTest extends OpMode {
     WHSRobotImpl robot;

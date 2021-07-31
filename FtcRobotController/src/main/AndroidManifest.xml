@@ -60,6 +60,8 @@
     <service
       android:name="com.qualcomm.ftccommon.FtcRobotControllerService"
       android:enabled="true" />
+    <uses-sdk android:minSdkVersion="23" android:targetSdkVersion="28"
+        tools:ignore="WrongManifestParent" />
 
   </application>
 

@@ -1,13 +1,11 @@
-
 package org.whitneyrobotics.ftc.teamcode.lib.util;
 
 //import com.acmerobotics.dashboard.config.Config;
 
-//import com.acmerobotics.dashboard.config.Config;
-
+import com.acmerobotics.dashboard.config.Config;
+import com.qualcomm.robotcore.hardware.VoltageSensor;
 import org.whitneyrobotics.ftc.teamcode.lib.control.ControlConstants;
-
-//@Config
+@Config
 public class RobotConstants {
     //Drivetrain
     public final static double DEADBAND_DRIVE_TO_TARGET = 24.5;
@@ -22,15 +20,14 @@ public class RobotConstants {
 
     //Outtake
     public final static double OUTTAKE_MAX_VELOCITY = 2120;
-    //public final static ControlConstants.FeedforwardFunction flywheelKF = (double currentPosition, double currentVelocity) -> 1/OUTTAKE_MAX_VELOCITY;
+    public final static ControlConstants.FeedforwardFunction flywheelKF = (double currentPosition, double currentVelocity) -> 1/OUTTAKE_MAX_VELOCITY;
     public static double FLYWHEEL_KP = 8.6;
     public static double FLYWHEEL_KI = 0.00091;
     public static double FLYWHEEL_KD = 0.86;
-    //public final static ControlConstants FLYWHEEL_CONSTANTS = new ControlConstants(FLYWHEEL_KP,FLYWHEEL_KI,FLYWHEEL_KD, flywheelKF);
+    public final static ControlConstants FLYWHEEL_CONSTANTS = new ControlConstants(FLYWHEEL_KP,FLYWHEEL_KI,FLYWHEEL_KD, flywheelKF);
 
     public final static double rotateTestAngle = 180;
     public final static boolean rotateOrientation = true;
 
 
 }
-

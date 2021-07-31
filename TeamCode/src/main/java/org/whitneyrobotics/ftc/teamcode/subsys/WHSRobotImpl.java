@@ -12,20 +12,19 @@ import org.whitneyrobotics.ftc.teamcode.lib.util.Functions;
 import org.whitneyrobotics.ftc.teamcode.lib.util.RobotConstants;
 import org.whitneyrobotics.ftc.teamcode.lib.util.SimpleTimer;
 
-/*
- * Created by Jason on 10/20/2017. */
-
-
+/**
+ * Created by Jason on 10/20/2017.
+ */
 
 public class WHSRobotImpl {
 
     public Drivetrain drivetrain;
     public IMU imu;
-    /*public Canister canister;
+    public Canister canister;
     public Intake intake;
     //public OldOuttake oldOuttake;
     public Wobble wobble;
-    public Outtake outtake;*/
+    public Outtake outtake;
 
     SwervePath currentSwervePath;
     public SwerveFollower swerveFollower;
@@ -75,10 +74,10 @@ public class WHSRobotImpl {
         DEADBAND_DRIVE_TO_TARGET = RobotConstants.DEADBAND_DRIVE_TO_TARGET; //in mm
         DEADBAND_ROTATE_TO_TARGET = RobotConstants.DEADBAND_ROTATE_TO_TARGET; //in degrees
 
-        //intake = new Intake(hardwareMap);
-        //outtake = new Outtake(hardwareMap);
-        //canister = new Canister(hardwareMap);
-        //wobble = new Wobble(hardwareMap);
+        intake = new Intake(hardwareMap);
+        outtake = new Outtake(hardwareMap);
+        canister = new Canister(hardwareMap);
+        wobble = new Wobble(hardwareMap);
 
         DRIVE_MIN = RobotConstants.drive_min;
         DRIVE_MAX = RobotConstants.drive_max;
@@ -86,7 +85,7 @@ public class WHSRobotImpl {
         ROTATE_MAX = RobotConstants.rotate_max;
 
         drivetrain = new Drivetrain(hardwareMap);
-        //drivetrain.resetEncoders();
+        drivetrain.resetEncoders();
         imu = new IMU(hardwareMap);
         currentCoord = new Coordinate(0.0, 0.0, 0.0);
     }
@@ -95,9 +94,7 @@ public class WHSRobotImpl {
         Position vectorToTarget = Functions.Positions.subtract(targetPos, currentCoord.getPos()); //field frame
         vectorToTarget = Functions.field2body(vectorToTarget, currentCoord); //body frame
         vectorToTargetDebug = vectorToTarget;
-        double distanceToTarget = vectorToTarget.getX();
-        //Functions.calculateMagnitude(vectorToTarget) * (vectorToTarget.getX() >= 0 ? 1 : -1)
-        ;
+        double distanceToTarget = vectorToTarget.getX()/*Functions.calculateMagnitude(vectorToTarget) * (vectorToTarget.getX() >= 0 ? 1 : -1)*/;
         distanceToTargetDebug = distanceToTarget;
 
         double degreesToRotate = Math.atan2(vectorToTarget.getY(), vectorToTarget.getX()); //from -pi to pi rad
@@ -151,14 +148,14 @@ public class WHSRobotImpl {
     public void rotateToTarget(double targetHeading, boolean backwards) {
 
         double angleToTarget = targetHeading - currentCoord.getHeading();
-        if (backwards && angleToTarget > 90) {
+        /*if (backwards && angleToTarget > 90) {
             angleToTarget = angleToTarget - 180;
             driveBackwards = true;
-        } else if (backwards && angleToTarget < -90) {
+        }
+        else if (backwards && angleToTarget < -90) {
             angleToTarget = angleToTarget + 180;
             driveBackwards = true;
-        }
-
+        }*/
         if (backwards) {
             angleToTarget = Functions.normalizeAngle(angleToTarget + 180); //-180 to 180 deg
             driveBackwards = true;
@@ -180,9 +177,7 @@ public class WHSRobotImpl {
 
         double power = (rotateController.getOutput() >= 0 ? 1 : -1) * (Functions.map(Math.abs(rotateController.getOutput()), 0, 180, ROTATE_MIN, ROTATE_MAX));
 
-        if (Math.abs(angleToTarget) > DEADBAND_ROTATE_TO_TARGET
-                && rotateController.getDerivative() < 40
-        ) {
+        if (Math.abs(angleToTarget) > DEADBAND_ROTATE_TO_TARGET/* && rotateController.getDerivative() < 40*/) {
             drivetrain.operateLeft(power);
             drivetrain.operateRight(-power);
             rotateToTargetInProgress = true;
@@ -201,17 +196,15 @@ public class WHSRobotImpl {
     public boolean rotateToTargetInProgress() {
         return rotateToTargetInProgress;
     }
-}
 
-    //public void estimatePosition() {
-    //    encoderDeltas = drivetrain.getLRAvgEncoderDelta();
-    //    distance = drivetrain.encToMM((encoderDeltas[0] + encoderDeltas[1]) / 2);
-    //    robotX += distance * Functions.cosd(getCoordinate().getHeading());
-    //    robotY += distance * Functions.sind(getCoordinate().getHeading());
-    //    currentCoord.setX(robotX);
-    //    currentCoord.setY(robotY);
-    //}
-    /*
+    public void estimatePosition() {
+        encoderDeltas = drivetrain.getLRAvgEncoderDelta();
+        distance = drivetrain.encToMM((encoderDeltas[0] + encoderDeltas[1]) / 2);
+        robotX += distance * Functions.cosd(getCoordinate().getHeading());
+        robotY += distance * Functions.sind(getCoordinate().getHeading());
+        currentCoord.setX(robotX);
+        currentCoord.setY(robotY);
+    }
 
     public void deadWheelEstimateCoordinate() {
 
@@ -240,7 +233,7 @@ public class WHSRobotImpl {
         currentCoord.setHeading(Functions.normalizeAngle(currentCoord.getHeading() + Math.toDegrees(deltaTheta)));
     }
 
-public void deadWheelEstimateCoordinate() {
+    /*public void deadWheelEstimateCoordinate() {
         encoderDeltas = drivetrain.getAllEncoderDelta();
         double leftDelta = drivetrain.lrWheelConverter.encToMM(encoderDeltas[0]);
         double rightDelta = drivetrain.lrWheelConverter.encToMM(encoderDeltas[1]);
@@ -279,8 +272,7 @@ public void deadWheelEstimateCoordinate() {
         Position bodyVector = new Position(deltaX, deltaY);
         Position fieldVector = Functions.body2field(bodyVector, currentCoord);
         currentCoord.setPos(Functions.Positions.add(fieldVector, currentCoord));
-    }
-
+    }*/
 
     public void mecanumEstimatePosition() {
         encoderDeltas = drivetrain.getMecanumEncoderDelta();
@@ -521,4 +513,4 @@ public void deadWheelEstimateCoordinate() {
     public boolean shootingInProgress(){
         return  shootingInProgress;
     }
-}*/
+}

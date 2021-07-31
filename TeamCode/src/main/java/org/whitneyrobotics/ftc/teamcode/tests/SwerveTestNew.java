@@ -1,11 +1,10 @@
-package org.whitneyrobotics.ftc.teamcode.test;
+package org.whitneyrobotics.ftc.teamcode.tests;
 
-//import com.acmerobotics.dashboard.FtcDashboard;
-//import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
-//import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.whitneyrobotics.ftc.teamcode.lib.geometry.Coordinate;
 import org.whitneyrobotics.ftc.teamcode.lib.geometry.Position;
@@ -16,8 +15,8 @@ import org.whitneyrobotics.ftc.teamcode.lib.purepursuit.swervetotarget.SwervePat
 import org.whitneyrobotics.ftc.teamcode.lib.purepursuit.swervetotarget.SwervePathGenerationConstants;
 import org.whitneyrobotics.ftc.teamcode.subsys.WHSRobotImpl;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
-
 @Autonomous (name = "SwerveToTargetTest")
 public class SwerveTestNew extends OpMode {
     WHSRobotImpl robot;
@@ -30,15 +29,15 @@ public class SwerveTestNew extends OpMode {
     ArrayList<Position> posArray = new ArrayList<>();
     FollowerConstants followerConstants = new FollowerConstants(550,false);
     SwervePathGenerationConstants pathGenerationConstants = new SwervePathGenerationConstants(12,0.7,0.8,230);
-    //FtcDashboard dashboard;
+    FtcDashboard dashboard;
     Telemetry dashboardTelemetry;
-    //TelemetryPacket packet = new TelemetryPacket();
+    TelemetryPacket packet = new TelemetryPacket();
 
     public void init(){
-        //dashboard = FtcDashboard.getInstance();
-        //dashboardTelemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
+        dashboard = FtcDashboard.getInstance();
+        dashboardTelemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
-        //dashboard.sendTelemetryPacket(packet);
+        dashboard.sendTelemetryPacket(packet);
         posArray.add(startingCoordinate);
         posArray.add(p1);
         robot = new WHSRobotImpl(hardwareMap);
@@ -51,13 +50,13 @@ public class SwerveTestNew extends OpMode {
         robot.estimatePosition();
         robot.estimateHeading();
         robot.swerveToTarget();
-        //packet.put("X", robot.getCoordinate().getX());
-        //packet.put("Y", robot.getCoordinate().getY());
+        packet.put("X", robot.getCoordinate().getX());
+        packet.put("Y", robot.getCoordinate().getY());
         for (SwerveWaypoint waypoint: path.getWaypoints()){
-            //packet.addLine("X: " + waypoint.getPosition().getX() + " Y: " + waypoint.getPosition().getY() + " Velocity: " + waypoint.getTangentialVelocity());
+            packet.addLine("X: " + waypoint.getPosition().getX() + " Y: " + waypoint.getPosition().getY() + " Velocity: " + waypoint.getTangentialVelocity());
         }
-        //packet.put("Closest Index", robot.swerveFollower.indexOfClosest);
-        //dashboard.sendTelemetryPacket(packet);
+        packet.put("Closest Index", robot.swerveFollower.indexOfClosest);
+        dashboard.sendTelemetryPacket(packet);
     }
 
 }
